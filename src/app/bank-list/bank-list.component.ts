@@ -72,7 +72,7 @@ export class BankListComponent implements OnInit {
       if (result) {
         this.service.deleteBank(id).subscribe(
           () => {
-            this.bankList(); // Refresh the list
+            this.bankList(); 
             this.router.navigate(['/banklist']);
           },
           error => console.log(error)

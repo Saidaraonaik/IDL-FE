@@ -50,7 +50,7 @@ export class EsiComponent implements OnInit {
     const companyId = localStorage.getItem('companyid');
     this.service.getAllEsi(+companyId).subscribe(data => {
       this.esidetails = data;
-      this.dataSource.data = this.esidetails; // Set the data for the dataSource
+      this.dataSource.data = this.esidetails; 
     });
   }
 

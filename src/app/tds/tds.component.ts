@@ -44,9 +44,9 @@ export class TdsComponent implements OnInit {
     const companyId = localStorage.getItem('companyid');
     if (companyId) {
       this.service.getAllTds(+companyId).subscribe(data => {
-        this.tdsdetails = data.filter(tds => tds.active); // Filter active records
+        this.tdsdetails = data.filter(tds => tds.active); 
         this.dataSource.data = this.tdsdetails;
-        this.dataSource.paginator = this.paginator; // Bind paginator
+        this.dataSource.paginator = this.paginator; 
       });
     } else {
       console.error('Company ID is not available in local storage.');
@@ -64,7 +64,7 @@ export class TdsComponent implements OnInit {
       if (result) {
         this.service.deleteTds(id).subscribe(
           data => {
-            this.tdsList(); // Refresh list after deletion
+            this.tdsList(); 
             this.router.navigate(['/tdslist']);
           },
           error => console.error(error)

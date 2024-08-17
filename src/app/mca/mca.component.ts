@@ -46,9 +46,9 @@ export class McaComponent implements OnInit {
     const companyId = localStorage.getItem('companyid');
     if (companyId) {
       this.service.getAllMca(+companyId).subscribe(data => {
-        this.mcadetails = data.filter(mca => mca.active); // Filter active records
+        this.mcadetails = data.filter(mca => mca.active); 
         this.dataSource.data = this.mcadetails;
-        this.dataSource.paginator = this.paginator; // Bind paginator
+        this.dataSource.paginator = this.paginator; 
       });
     } else {
       console.error('Company ID is not available in local storage.');

@@ -41,9 +41,9 @@ export class DirectorComponent implements OnInit {
   loadDirectors() {
     const companyId = localStorage.getItem('companyid');
     this.service.getAllDirector(+companyId).subscribe(data => {
-      this.directordetails = data.filter(director => director.active); // Filter active records
+      this.directordetails = data.filter(director => director.active); 
       this.dataSource.data = this.directordetails;
-      this.dataSource.paginator = this.paginator; // Bind paginator
+      this.dataSource.paginator = this.paginator; 
     });
   }
 
@@ -58,7 +58,7 @@ export class DirectorComponent implements OnInit {
       if (result) {
         this.service.deleteDirector(id).subscribe(
           data => {
-            this.loadDirectors(); // Refresh list after deletion
+            this.loadDirectors();
             this.router.navigate(['/directorlist']);
           },
           error => console.error(error)

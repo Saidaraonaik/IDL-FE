@@ -18,7 +18,6 @@ export class OrganizationComponent implements OnInit {
   isAdmin: boolean = false;
 
 
-  // Using a single instance of MatTableDataSource
   displayedColumns: string[] = ['cin', 'companyname', 'email', 'view', 'edit', 'delete'];
   dataSource: MatTableDataSource<Organization>;
   Columns: string[] = ['cin', 'companyname', 'email', 'view', 'edit', 'delete'];
@@ -60,11 +59,10 @@ export class OrganizationComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.service.deleteOrganization(companyid).subscribe(() => {
-          // Find the organization by ID and set its active property to false
           const organization = this.dataSource.data.find(org => org.companyid === companyid);
           if (organization) {
             organization.active = false;
-            this.dataSource.filter = this.searchQuery.trim().toLowerCase(); // Reapply filter
+            this.dataSource.filter = this.searchQuery.trim().toLowerCase(); 
           }
           console.log(`Company with ID ${companyid} deleted.`);
         },

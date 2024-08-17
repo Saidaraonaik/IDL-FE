@@ -44,9 +44,9 @@ export class IncometaxComponent implements OnInit {
     const companyId = localStorage.getItem('companyid');
     if (companyId) {
       this.service.getAllIncometax(+companyId).subscribe(data => {
-        this.incometaxdetails = data.filter(incometax => incometax.active); // Filter active records
+        this.incometaxdetails = data.filter(incometax => incometax.active);
         this.dataSource.data = this.incometaxdetails;
-        this.dataSource.paginator = this.paginator; // Bind paginator
+        this.dataSource.paginator = this.paginator; 
       });
     } else {
       console.error('Company ID is not available in local storage.');
@@ -64,7 +64,7 @@ export class IncometaxComponent implements OnInit {
       if (result) {
         this.service.deleteIncometax(id).subscribe(
           data => {
-            this.incometaxList(); // Refresh list after deletion
+            this.incometaxList();
             this.router.navigate(['/incometaxlist']);
           },
           error => console.error(error)

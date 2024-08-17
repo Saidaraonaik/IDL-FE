@@ -42,9 +42,9 @@ export class KmpComponent implements OnInit {
     const companyId = localStorage.getItem('companyid');
     if (companyId) {
       this.service.getAllKmp(+companyId).subscribe(data => {
-        this.kmpDetails = data.filter(kmp => kmp.active); // Filter active records
+        this.kmpDetails = data.filter(kmp => kmp.active); 
         this.dataSource.data = this.kmpDetails;
-        this.dataSource.paginator = this.paginator; // Bind paginator
+        this.dataSource.paginator = this.paginator; 
       });
     } else {
       console.error('Company ID is not available in local storage.');
@@ -62,7 +62,7 @@ export class KmpComponent implements OnInit {
       if (result) {
         this.service.deleteKmp(id).subscribe(
           data => {
-            this.kmpList(); // Refresh list after deletion
+            this.kmpList(); 
             this.router.navigate(['/kmplist']);
           },
           error => console.error(error)
