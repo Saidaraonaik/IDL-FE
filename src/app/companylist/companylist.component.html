@@ -1,0 +1,42 @@
+<app-header></app-header>
+<section class="main">
+  <h1 class="text-center text-bold">
+    <span>C</span><span>O</span><span>M</span><span>P</span><span>A</span
+    ><span>N</span><span>Y</span> &nbsp;&nbsp;<span>L</span><span>I</span
+    ><span>S</span><span>T</span>
+  </h1>
+
+  <div class="choose">
+    <div class="company">
+      <div class="comp">
+        <div class="comp-avatar">
+          <div class="company-card-container">
+            <div class="company-card">
+              <div class="for" *ngFor="let companies of company">
+                <div *ngIf="companies.active">
+                  <div
+                    class="item1"
+                    [routerLink]="['/home', companies.companyid]"
+                    (click)="storeid(companies.companyid)"
+                    [ngStyle]="{
+                      'background-image':
+                        'url(' + getImageUrl(companies.image) + ')'}">
+                        <div class="overlay">
+                            <h2>{{companies.companyname}}</h2>
+                          </div>
+                        </div>
+                </div>
+              </div>
+              <div class="item2" routerLink="/addnewcomp" routerLinkActive="active">
+                <i class="bx bx-plus-medical" style="font-size: 50px"></i>
+                <h2>ADD NEW</h2>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<br /><br />
+<app-footer></app-footer>

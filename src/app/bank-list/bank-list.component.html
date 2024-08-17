@@ -1,0 +1,141 @@
+<div class="d-flex" [class.collapsed]="collapsed">
+  <app-navbar (toggle)="toggleSidebar()"></app-navbar>
+  <div class="content-area w-100">
+    <app-header></app-header>
+    <div class="main-content p-3">
+      <div class="container mt-4">
+        <div class="card bg-body rounded shadow-sm">
+          <div class="card-body container-fluid">
+            <nav class="navbar navbar-light bg-light rounded mb-4 search-bar">
+              <div class="container-fluid">
+                <h4 class="card-title mb-0">Bank List:</h4>
+                <form class="d-flex mb-1">
+                  <mat-form-field class="example-full-width flex-grow-1">
+                    <mat-label>Search</mat-label>
+                    <input 
+                      matInput 
+                      [(ngModel)]="searchQuery" 
+                      (keyup)="applyFilter($event)" 
+                      placeholder="Search"
+                      aria-label="Search" 
+                      name="searchQuery" 
+                    />
+                    <button mat-icon-button matSuffix class="text-dark">
+                      <mat-icon>search</mat-icon>
+                    </button>
+                  </mat-form-field>
+                </form>
+              </div>
+            </nav>
+
+            <div class="table-responsive rounded">
+              <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+                <!-- Bank Name Column -->
+                <ng-container matColumnDef="bankName">
+                  <th mat-header-cell *matHeaderCellDef> Bank Name </th>
+                  <td mat-cell *matCellDef="let bankdetails"> {{ bankdetails.bankName }} </td>
+                </ng-container>
+
+                <!-- Account Number Column -->
+                <ng-container matColumnDef="bankAccountNumber">
+                  <th mat-header-cell *matHeaderCellDef> Account Number </th>
+                  <td mat-cell *matCellDef="let bankdetails"> {{ bankdetails.bankAccountNumber }} </td>
+                </ng-container>
+
+                <!-- Account Type Column -->
+                <ng-container matColumnDef="accountType">
+                  <th mat-header-cell *matHeaderCellDef> Account Type </th>
+                  <td mat-cell *matCellDef="let bankdetails"> {{ bankdetails.accountType }} </td>
+                </ng-container>
+
+                <!-- Login ID Column -->
+                <ng-container matColumnDef="loginid">
+                  <th mat-header-cell *matHeaderCellDef> Login Id </th>
+                  <td mat-cell *matCellDef="let bankdetails"> {{ bankdetails.loginid }} </td>
+                </ng-container>
+
+                <!-- Login Password Column -->
+                <ng-container matColumnDef="loginPassword">
+                  <th mat-header-cell *matHeaderCellDef> Login Password </th>
+                  <td mat-cell *matCellDef="let bankdetails" class="text-center">
+                    <button mat-icon-button (click)="getpassword(bankdetails.id)">
+                      <mat-icon>lock</mat-icon>
+                    </button>
+                    <div *ngIf="selectedBanLPkId === bankdetails.id" class="overlay-card">
+                      <mat-card>
+                        <mat-card-content>
+                          <p>Login Password: {{ decryptedLPPassword }}</p>
+                          <button mat-button (click)="clearDecryptedPassword()">Close</button>
+                        </mat-card-content>
+                      </mat-card>
+                    </div>
+                  </td>
+                </ng-container>
+
+                <!-- Transaction Password Column -->
+                <ng-container matColumnDef="transactionPassword">
+                  <th mat-header-cell *matHeaderCellDef> Transaction Password </th>
+                  <td mat-cell *matCellDef="let bankdetails" class="text-center">
+                    <button mat-icon-button (click)="getTRpassword(bankdetails.id)">
+                      <mat-icon>security</mat-icon>
+                    </button>
+                    <div *ngIf="selectedBankTRId === bankdetails.id" class="overlay-card">
+                      <mat-card>
+                        <mat-card-content>
+                          <p>Transaction Password: {{ decryptedTRPassword }}</p>
+                          <button mat-button (click)="clearDecryptedTRPassword()">Close</button>
+                        </mat-card-content>
+                      </mat-card>
+                    </div>
+                  </td>
+                </ng-container>
+
+                <!-- View Column -->
+                <ng-container matColumnDef="view">
+                  <th mat-header-cell *matHeaderCellDef> &nbsp;&nbsp;View </th>
+                  <td mat-cell *matCellDef="let bankdetails" class="text-center">
+                    <button mat-icon-button color="primary" (click)="bankView(bankdetails.id)">
+                      <mat-icon>visibility</mat-icon>
+                    </button>
+                  </td>
+                </ng-container>
+
+                <!-- Edit Column -->
+                <ng-container matColumnDef="edit">
+                  <th mat-header-cell *matHeaderCellDef>&nbsp; Edit </th>
+                  <td mat-cell *matCellDef="let bankdetails" class="text-center">
+                    <button mat-icon-button color="accent" (click)="updateBank(bankdetails.id)">
+                      <mat-icon>edit</mat-icon>
+                    </button>
+                  </td>
+                </ng-container>
+
+                <!-- Delete Column -->
+                <ng-container matColumnDef="delete">
+                  <th mat-header-cell *matHeaderCellDef> Delete </th>
+                  <td mat-cell *matCellDef="let bankdetails" class="text-center">
+                    <button mat-icon-button color="warn" (click)="deleteBank(bankdetails.id)">
+                      <mat-icon>delete</mat-icon>
+                    </button>
+                  </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns" [style.background-color]="'#6db7d7'" style="color: white;"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;" style="text-align: center;"></tr>
+              </table>
+            </div>
+
+            <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+
+            <div class="text-start mb-4 ms-3">
+              <button mat-raised-button color="primary" routerLink="/addbank">
+                <mat-icon>add_circle</mat-icon>&nbsp;Add New
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<app-footer></app-footer>

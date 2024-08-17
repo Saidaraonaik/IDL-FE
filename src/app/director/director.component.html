@@ -1,0 +1,86 @@
+<div class="d-flex" [class.collapsed]="collapsed">
+  <app-navbar (toggle)="toggleSidebar()"></app-navbar>
+  <div class="content-area w-100">
+    <app-header></app-header>
+    <div class="main-content p-3">
+      <div class="container mt-4">
+        <div class="card bg-body rounded shadow-sm">
+          <div class="card-body container-fluid">
+            <nav class="navbar navbar-light bg-light rounded mb-4 search-bar">
+              <div class="container-fluid">
+                <h4 class="card-title mb-0">Directors List:</h4>
+                <form class="d-flex mb-1">
+                  <mat-form-field class="example-full-width flex-grow-1">
+                    <mat-label>Search</mat-label>
+                    <input matInput [(ngModel)]="searchQuery" (keyup)="applyFilter($event)" placeholder="Search" aria-label="Search" name="searchQuery" />
+                    <button mat-icon-button matSuffix class="text-dark">
+                      <mat-icon>search</mat-icon>
+                    </button>
+                  </mat-form-field>
+                </form>
+              </div>
+            </nav>
+
+            <div class="table-responsive rounded">
+              <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+                <ng-container matColumnDef="name">
+                  <th mat-header-cell *matHeaderCellDef> Director Name </th>
+                  <td mat-cell *matCellDef="let director"> {{ director.name }} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="email">
+                  <th mat-header-cell *matHeaderCellDef> Designation </th>
+                  <td mat-cell *matCellDef="let director"> {{ director.email }} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="dinNo">
+                  <th mat-header-cell *matHeaderCellDef> DIN Number </th>
+                  <td mat-cell *matCellDef="let director"> {{ director.dinNo }} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="view">
+                  <th mat-header-cell *matHeaderCellDef class="text-center"> View </th>
+                  <td mat-cell *matCellDef="let director" class="text-center">
+                    <button mat-icon-button color="primary" (click)="directorView(director.id)">
+                      <mat-icon>visibility</mat-icon>
+                    </button>
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="edit">
+                  <th mat-header-cell *matHeaderCellDef class="text-center"> Edit </th>
+                  <td mat-cell *matCellDef="let director" class="text-center">
+                    <button mat-icon-button color="accent" (click)="updateDirector(director.id)">
+                      <mat-icon>edit</mat-icon>
+                    </button>
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="delete">
+                  <th mat-header-cell *matHeaderCellDef class="text-center"> Delete </th>
+                  <td mat-cell *matCellDef="let director" class="text-center">
+                    <button mat-icon-button color="warn" (click)="deleteDirector(director.id)">
+                      <mat-icon>delete</mat-icon>
+                    </button>
+                  </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns" [style.background-color]="'#6db7d7'"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+              </table>
+            </div>
+
+            <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+
+            <div class="text-start mb-4 ms-3">
+              <button mat-raised-button color="primary" routerLink="/adddirectors">
+                <mat-icon>add_circle</mat-icon>&nbsp;Add New
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<app-footer></app-footer>
